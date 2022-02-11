@@ -7,6 +7,6 @@ target 'DaeguExhibitonFinder' do
 
   # Pods for DaeguExhibitonFinder
 
-pod 'Alamofire', '~> 4.7'
+pod 'Alamofire', '~> 5.0'
 
 end
