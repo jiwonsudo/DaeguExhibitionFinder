@@ -15,10 +15,12 @@ class ViewController: UIViewController {
         "년" : "2022",
         "월" : "09"
     ]
+    let header : HTTPHeaders = ["Content-Type" : "application/json", ]
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        AF.request(url, method: .get, parameters: param, encoding: URLEncoding.default).responseJSON {
+        AF.request(url, method: .get, parameters: param, headers: header).responseJSON
+        {
             response in debugPrint(response)
         }
     }
