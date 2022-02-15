@@ -10,16 +10,12 @@ import Alamofire
 
 class ViewController: UIViewController {
     
-    let url = "https://dgfc.or.kr/ajax/event/list.json?event_gubun=DP&start_date=2021-09"
-    let param : Parameters = [
-        "년" : "2022",
-        "월" : "09"
-    ]
+    let url = "https://dgfc.or.kr/ajax/event/list.json?event_gubun=DP&start_date=2021-10"
     let header : HTTPHeaders = ["Content-Type" : "application/json", ]
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        AF.request(url, method: .get, parameters: param, headers: header).responseJSON
+        AF.request(url, method: .get, headers: header).responseJSON
         {
             response in debugPrint(response)
         }
