@@ -23,6 +23,7 @@ class ViewController: UIViewController {
     let arrayMonth = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     
     @IBOutlet var tfSearchDate: UITextField!
+    @IBOutlet var lblReqResult: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,9 +57,16 @@ class ViewController: UIViewController {
         }
         
         targetURL = "https://dgfc.or.kr/ajax/event/list.json?event_gubun=DP&start_date=\(selectedYear)-\(selectedMonthStr)"
-        AF.request(targetURL, method: .get, headers: header).responseJSON
+        AF.request(targetURL, method: .get, headers: header).validate(statusCode: 200..<300).responseJSON
         {
-            response in debugPrint(response)
+            response in print(response)
+            if 200..<300 ~= response.response!.statusCode {
+                self.lblReqResult.text = "요청에 성공했습니다!"
+                self.lblReqResult.textColor = UIColor.systemGreen
+            } else {
+                self.lblReqResult.text = "요청에 실패했습니다."
+                self.lblReqResult.textColor = UIColor.systemRed
+            }
             // futureUpdate : JSON decode 필요
         }
     }
