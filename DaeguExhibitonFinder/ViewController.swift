@@ -156,12 +156,16 @@ extension ViewController : UIPickerViewDelegate, UIPickerViewDataSource {
         print(yearRow)
         self.tfSearchDate.resignFirstResponder()
         setDate(inputYear: selectedYear, inputMonth: selectedMonth)
+        self.lblReqResult.text = "요청 결과가 여기에 표시됩니다."
+        self.lblReqResult.textColor = UIColor.lightGray
     }
     
     @objc func cancelPicker() {
         self.tfSearchDate.text = nil
         self.tfSearchDate.resignFirstResponder()
         self.isDateVaild = false
+        self.lblReqResult.text = "요청 결과가 여기에 표시됩니다."
+        self.lblReqResult.textColor = UIColor.lightGray
     }
 }
 
