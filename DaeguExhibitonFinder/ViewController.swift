@@ -7,6 +7,7 @@
 
 import UIKit
 import Alamofire
+import SwiftyJSON
 
 class ViewController: UIViewController {
     
@@ -21,6 +22,8 @@ class ViewController: UIViewController {
     let setDatePicker = UIPickerView()
     let arrayYear = [2021, 2022]
     let arrayMonth = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+    
+    var subjects : [String] = []
     
     @IBOutlet var tfSearchDate: UITextField!
     @IBOutlet var lblReqResult: UILabel!
@@ -50,6 +53,8 @@ class ViewController: UIViewController {
     }
     
     func searchDP() {
+        subjects.removeAll() // 배열 초기화
+        
         var selectedMonthStr = String(selectedMonth)
         
         if 1...9 ~= selectedMonth {
@@ -57,9 +62,25 @@ class ViewController: UIViewController {
         }
         
         targetURL = "https://dgfc.or.kr/ajax/event/list.json?event_gubun=DP&start_date=\(selectedYear)-\(selectedMonthStr)"
-        AF.request(targetURL, method: .get, headers: header).validate(statusCode: 200..<300).responseJSON
+        AF.request(targetURL, method: .get).validate(statusCode: 200..<300).response
         {
-            response in print(response)
+            response in
+            
+            switch response.result {
+            case .success(let resValue):
+                let resJson = JSON(resValue!)
+                
+                if let resJsonArray = resJson.array {
+                    for i in 0..<resJsonArray.count {
+                        self.subjects.append(resJsonArray[i]["subject"].stringValue)
+                    }
+                }
+            default:
+                return
+                
+            }
+            print(self.subjects) // TEST
+            
             if 200..<300 ~= response.response!.statusCode {
                 self.lblReqResult.text = "요청에 성공했습니다!"
                 self.lblReqResult.textColor = UIColor.systemGreen
@@ -75,7 +96,7 @@ class ViewController: UIViewController {
         if isDateVaild == true {
             searchDP()
         } else {
-            let alertDateEmpty = UIAlertController(title: "경고", message: "전시의 시작 년도, 월을 입력해주세요.", preferredStyle: .alert)
+            let alertDateEmpty = UIAlertController(title: "경고", message: "전시의 종료 년도, 월을 입력해주세요.", preferredStyle: .alert)
             let actionOK = UIAlertAction(title: "확인", style: .default, handler: {action in })
             alertDateEmpty.addAction(actionOK)
             present(alertDateEmpty, animated: true, completion: nil)

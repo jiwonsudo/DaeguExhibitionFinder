@@ -26,7 +26,7 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="b8j-FQ-oju">
                                                 <rect key="frame" x="20" y="13" width="374" height="34"/>
                                                 <subviews>
-                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="전시의 시작 년/월을 입력하세요" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MOF-Hd-HDZ">
+                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="전시의 종료 년/월을 입력하세요" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MOF-Hd-HDZ">
                                                         <rect key="frame" x="0.0" y="0.0" width="274" height="34"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="250" id="0yO-LU-57a"/>
