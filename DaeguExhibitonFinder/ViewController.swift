@@ -48,7 +48,7 @@ class ViewController: UIViewController {
             isDateVaild = true
             
             selectedYear = inputYear; selectedMonth = inputMonth
-            tfSearchDate.text = "시작: \(selectedYear)년 \(selectedMonth)월"
+            tfSearchDate.text = "종료: \(selectedYear)년 \(selectedMonth)월"
         }
     }
     
