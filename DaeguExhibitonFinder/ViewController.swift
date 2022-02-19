@@ -11,19 +11,26 @@ import SwiftyJSON
 
 class ViewController: UIViewController {
     
+    // DP검색 API URL
     var targetURL = "https://dgfc.or.kr/ajax/event/list.json?event_gubun=DP&start_date=2021-10"
-    let header : HTTPHeaders = ["Content-Type" : "application/json", ]
 
+    // 초기 년/월 설정
     var selectedYear = 2021
     var selectedMonth = 1
     
+    // 검색 가능한 날짜인지 Bool타입으로 저장
     var isDateVaild = false
     
+    // 년/월 선택 PickerView 설정
     let setDatePicker = UIPickerView()
     let arrayYear = [2021, 2022]
     let arrayMonth = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     
-    var subjects : [String] = []
+    // JSON key별 Array
+    var subjects : [String] = [] // 전시명
+    var pay_gubun : [String] = [] // 관람비용 유형 (free : 무료, pay : 유료, invitation : 초대)
+    var place : [String] = [] // 장소
+    var start_date : [String] = [] // 시작일
     
     @IBOutlet var tfSearchDate: UITextField!
     @IBOutlet var lblReqResult: UILabel!
