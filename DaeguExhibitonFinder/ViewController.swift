@@ -82,10 +82,10 @@ class ViewController: UIViewController {
             print(self.subjects) // TEST
             
             if 200..<300 ~= response.response!.statusCode {
-                self.lblReqResult.text = "요청에 성공했습니다!"
+                self.lblReqResult.text = "검색에 성공했습니다!"
                 self.lblReqResult.textColor = UIColor.systemGreen
             } else {
-                self.lblReqResult.text = "요청에 실패했습니다."
+                self.lblReqResult.text = "검색에 실패했습니다."
                 self.lblReqResult.textColor = UIColor.systemRed
             }
             // futureUpdate : JSON decode 필요
