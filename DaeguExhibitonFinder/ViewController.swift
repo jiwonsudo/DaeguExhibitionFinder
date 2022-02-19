@@ -28,9 +28,9 @@ class ViewController: UIViewController {
     
     // JSON key별 Array
     var subjects : [String] = [] // 전시명
-    var pay_gubun : [String] = [] // 관람비용 유형 (free : 무료, pay : 유료, invitation : 초대)
-    var place : [String] = [] // 장소
-    var start_date : [String] = [] // 시작일
+    var pay_gubuns : [String] = [] // 관람비용 유형 (free : 무료, pay : 유료, invitation : 초대)
+    var places : [String] = [] // 장소
+    var start_dates : [String] = [] // 시작일
     
     @IBOutlet var tfSearchDate: UITextField!
     @IBOutlet var lblReqResult: UILabel!
@@ -79,14 +79,33 @@ class ViewController: UIViewController {
                 
                 if let resJsonArray = resJson.array {
                     for i in 0..<resJsonArray.count {
-                        self.subjects.append(resJsonArray[i]["subject"].stringValue)
+                        self.subjects.append(resJsonArray[i]["subject"].stringValue) // subjects에 key: subject의 value 저장
+                        self.places.append(resJsonArray[i]["place"].stringValue) // places에 key: place의 value 저장
+                        self.start_dates.append(resJsonArray[i]["start_date"].stringValue) // start_dates에 key: start_date의 value 저장
+                        switch resJsonArray[i]["pay_gubun"].stringValue { // pay_gubuns에 key: pay_gubun의 value 한글로 저장
+                        case "free":
+                            self.pay_gubuns.append("무료")
+                        case "pay":
+                            self.pay_gubuns.append("유료")
+                        case "invitation":
+                            self.pay_gubuns.append("초대 전용")
+                        default:
+                            break
+                        }
                     }
                 }
             default:
                 return
                 
             }
-            print(self.subjects) // TEST
+            
+            //TEST
+            print("검색된 항목의 수: \(self.subjects.count)")
+            print(self.subjects)
+            print(self.pay_gubuns)
+            print(self.start_dates)
+            print(self.places)
+            //TEST
             
             if 200..<300 ~= response.response!.statusCode {
                 self.lblReqResult.text = "검색에 성공했습니다!"
