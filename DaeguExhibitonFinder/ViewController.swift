@@ -60,7 +60,11 @@ class ViewController: UIViewController {
     }
     
     func searchDP() {
-        subjects.removeAll() // 배열 초기화
+        // 배열 초기화
+        subjects.removeAll()
+        pay_gubuns.removeAll()
+        places.removeAll()
+        start_dates.removeAll()
         
         var selectedMonthStr = String(selectedMonth)
         
