@@ -74,7 +74,7 @@ class ViewController: UIViewController {
         
         targetURL = "https://dgfc.or.kr/ajax/event/list.json?event_gubun=DP&start_date=\(selectedYear)-\(selectedMonthStr)"
         AF.request(targetURL, method: .get).validate(statusCode: 200..<300).response
-        {
+        { [self]
             response in
             
             switch response.result {
@@ -111,6 +111,8 @@ class ViewController: UIViewController {
             print(self.places)
             //TEST
             
+            self.setLayout(numberOfContents: self.subjects.count)
+            
             if 200..<300 ~= response.response!.statusCode {
                 self.lblReqResult.text = "검색에 성공했습니다!"
                 self.lblReqResult.textColor = UIColor.systemGreen
@@ -120,6 +122,33 @@ class ViewController: UIViewController {
             }
             // futureUpdate : JSON decode 필요
         }
+    }
+    
+    func setLayout(numberOfContents : Int){
+        let scrollView : UIScrollView = {
+            let scrollView = UIScrollView()
+            scrollView.backgroundColor = .systemBlue // TEST
+            scrollView.translatesAutoresizingMaskIntoConstraints = false
+            return scrollView
+        }()
+        let backgroundView : UIView = {
+            let backgroundView = UIView()
+            backgroundView.backgroundColor = .systemRed // TEST
+            backgroundView.translatesAutoresizingMaskIntoConstraints = false
+            return backgroundView
+        }()
+        
+        self.view.addSubview(scrollView)
+        scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
+        scrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: 150).isActive = true
+        scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
+        scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
+        
+        scrollView.addSubview(backgroundView)
+        backgroundView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
+        backgroundView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
+        backgroundView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
+        backgroundView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: 100 ).isActive = true//CGFloat((numberOfContents * 80) + (numberOfContents + 1) * 20)).isActive = true
     }
     
     @IBAction func btnSearch(_ sender: UIButton) {
