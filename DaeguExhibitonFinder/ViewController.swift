@@ -144,11 +144,18 @@ class ViewController: UIViewController {
         scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
         scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
         
+        scrollView.contentLayoutGuide.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
+        scrollView.contentLayoutGuide.topAnchor.constraint(equalTo: view.topAnchor, constant: 150).isActive = true
+        scrollView.contentLayoutGuide.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
+        scrollView.contentLayoutGuide.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
+        
         scrollView.addSubview(backgroundView)
-        backgroundView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
-        backgroundView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
-        backgroundView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
-        backgroundView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: 100 ).isActive = true//CGFloat((numberOfContents * 80) + (numberOfContents + 1) * 20)).isActive = true
+        backgroundView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor).isActive = true
+        backgroundView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor).isActive = true
+        backgroundView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor).isActive = true
+        backgroundView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor, constant: CGFloat((numberOfContents * 80) + (numberOfContents + 1) * 20)).isActive = true
+        
+        print("현재 backgroundView 길이: \((numberOfContents * 80) + (numberOfContents + 1) * 20))") // TEST
     }
     
     @IBAction func btnSearch(_ sender: UIButton) {
