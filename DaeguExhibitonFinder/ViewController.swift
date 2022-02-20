@@ -111,7 +111,7 @@ class ViewController: UIViewController {
             print(self.places)
             //TEST
             
-            self.setLayout(numberOfContents: self.subjects.count)
+            self.setLayout(numberOfContents: self.subjects.count) // backgroundView의 길이를 subject의 수에 맞게 유동적으로 조정하고 다른 UI 생성
             
             if 200..<300 ~= response.response!.statusCode {
                 self.lblReqResult.text = "검색에 성공했습니다!"
@@ -153,9 +153,9 @@ class ViewController: UIViewController {
         backgroundView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor).isActive = true
         backgroundView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor).isActive = true
         backgroundView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor).isActive = true
-        backgroundView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor, constant: CGFloat((numberOfContents * 80) + (numberOfContents + 1) * 20)).isActive = true
+        backgroundView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor, constant: CGFloat(((numberOfContents * 80) + (numberOfContents + 1) * 20) - 746)).isActive = true
         
-        print("현재 backgroundView 길이: \((numberOfContents * 80) + (numberOfContents + 1) * 20))") // TEST
+        print("현재 backgroundView 길이: \(((numberOfContents * 80) + (numberOfContents + 1) * 20))") // TEST
     }
     
     @IBAction func btnSearch(_ sender: UIButton) {
