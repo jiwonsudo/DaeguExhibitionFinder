@@ -125,17 +125,11 @@ class ViewController: UIViewController {
     }
     
     func setLayout(numberOfContents : Int){
-        let scrollView : UIScrollView = {
+        let scrollView : UIScrollView = { // 바탕 UIScrollView
             let scrollView = UIScrollView()
             scrollView.backgroundColor = .systemBlue // TEST
             scrollView.translatesAutoresizingMaskIntoConstraints = false
             return scrollView
-        }()
-        let backgroundView : UIView = {
-            let backgroundView = UIView()
-            backgroundView.backgroundColor = .systemRed // TEST
-            backgroundView.translatesAutoresizingMaskIntoConstraints = false
-            return backgroundView
         }()
         
         self.view.addSubview(scrollView)
@@ -144,18 +138,59 @@ class ViewController: UIViewController {
         scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
         scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
         
-        scrollView.contentLayoutGuide.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
-        scrollView.contentLayoutGuide.topAnchor.constraint(equalTo: view.topAnchor, constant: 150).isActive = true
-        scrollView.contentLayoutGuide.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
-        scrollView.contentLayoutGuide.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
+        // **수정필요**
+        var verticalAxisCounter = 20 // contentView topAnchor
         
-        scrollView.addSubview(backgroundView)
-        backgroundView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor).isActive = true
-        backgroundView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor).isActive = true
-        backgroundView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor).isActive = true
-        backgroundView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor, constant: CGFloat(((numberOfContents * 80) + (numberOfContents + 1) * 20) - 746)).isActive = true
+        for i in 1...numberOfContents {
+            
+            let contentView : UIView = {
+                let contentView = UIView()
+                contentView.layer.cornerRadius = 2
+                contentView.backgroundColor = .lightGray
+                contentView.tag = i
+                contentView.translatesAutoresizingMaskIntoConstraints = false
+                return contentView
+            }()
+
+            scrollView.addSubview(contentView.viewWithTag(i)!)
+
+            view.viewWithTag(i)!.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 20).isActive = true
+            view.viewWithTag(i)!.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -20).isActive = true
+            view.viewWithTag(i)!.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: CGFloat(verticalAxisCounter)).isActive = true
+
+            verticalAxisCounter = verticalAxisCounter + 80
+
+            view.viewWithTag(i)!.bottomAnchor.constraint(equalTo:scrollView.topAnchor, constant: CGFloat(verticalAxisCounter)).isActive = true
+
+            verticalAxisCounter = verticalAxisCounter + 20
+        } // **수정필요**
         
-        print("현재 backgroundView 길이: \(((numberOfContents * 80) + (numberOfContents + 1) * 20))") // TEST
+        //TEST
+        let labelOne: UILabel = {
+            let label = UILabel()
+            label.text = "Scroll Top"
+            label.backgroundColor = .red
+            label.translatesAutoresizingMaskIntoConstraints = false
+            return label
+        }()
+        scrollView.addSubview(labelOne)
+        
+        labelOne.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 40).isActive = true
+        labelOne.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 40).isActive = true
+        
+        let labelTwo: UILabel = {
+            let label = UILabel()
+            label.text = "Scroll Bottom"
+            label.backgroundColor = .red
+            label.translatesAutoresizingMaskIntoConstraints = false
+            return label
+        }()
+        
+        scrollView.addSubview(labelTwo)
+        labelTwo.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 40).isActive = true
+        labelTwo.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 1000).isActive = true
+        labelTwo.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -40).isActive = true
+        //TEST
     }
     
     @IBAction func btnSearch(_ sender: UIButton) {

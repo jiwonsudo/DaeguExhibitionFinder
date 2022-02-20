@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6E37F2614E337BFACF48F26D /* Pods_DaeguExhibitonFinder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 532E3F73F34A001E37DAA36E /* Pods_DaeguExhibitonFinder.framework */; };
 		875BB64C27BBFD9900E37739 /* request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875BB64B27BBFD9800E37739 /* request.swift */; };
 		87FCBBC527B6A8BC000D3EA5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FCBBC427B6A8BC000D3EA5 /* AppDelegate.swift */; };
 		87FCBBC727B6A8BC000D3EA5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FCBBC627B6A8BC000D3EA5 /* SceneDelegate.swift */; };
@@ -19,7 +18,6 @@
 
 /* Begin PBXFileReference section */
 		0DF6A2C39E14D1B0360055DA /* Pods-DaeguExhibitonFinder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DaeguExhibitonFinder.release.xcconfig"; path = "Target Support Files/Pods-DaeguExhibitonFinder/Pods-DaeguExhibitonFinder.release.xcconfig"; sourceTree = "<group>"; };
-		532E3F73F34A001E37DAA36E /* Pods_DaeguExhibitonFinder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DaeguExhibitonFinder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		875BB64B27BBFD9800E37739 /* request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = request.swift; sourceTree = "<group>"; };
 		87FCBBC127B6A8BC000D3EA5 /* DaeguExhibitonFinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DaeguExhibitonFinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		87FCBBC427B6A8BC000D3EA5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -37,7 +35,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6E37F2614E337BFACF48F26D /* Pods_DaeguExhibitonFinder.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -89,7 +86,6 @@
 		FF20098FAC6749781D103ABD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				532E3F73F34A001E37DAA36E /* Pods_DaeguExhibitonFinder.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
