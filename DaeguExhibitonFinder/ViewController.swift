@@ -19,7 +19,7 @@ class ViewController: UIViewController {
     var selectedMonth = 1
     
     // 검색 가능한 날짜인지 Bool타입으로 저장
-    var isDateVaild = false
+    var isDateVaild : Bool = false
     
     // 년/월 선택 PickerView 설정
     let setDatePicker = UIPickerView()
@@ -31,6 +31,9 @@ class ViewController: UIViewController {
     var pay_gubuns : [String] = [] // 관람비용 유형 (free : 무료, pay : 유료, invitation : 초대)
     var places : [String] = [] // 장소
     var start_dates : [String] = [] // 시작일
+    
+    // 레이아웃 추가 (setLayOut) 활성화 되었는지 체크
+    var isLayoutSet : Bool = false
     
     @IBOutlet var tfSearchDate: UITextField!
     @IBOutlet var lblReqResult: UILabel!
@@ -126,29 +129,23 @@ class ViewController: UIViewController {
     
     func setLayout(numberOfContents : Int){
         
-        let safeArea = view.safeAreaLayoutGuide
-        
         let scrollView : UIScrollView = { // 바탕 UIScrollView
             let scrollView = UIScrollView()
-            scrollView.backgroundColor = .systemBlue // TEST
             scrollView.translatesAutoresizingMaskIntoConstraints = false
             return scrollView
         }()
         
         let bgView : UIView = { // scrollView 위에 올라갈 바탕 UIView
             let bgView = UIView()
-            bgView.backgroundColor = .systemPink
             bgView.translatesAutoresizingMaskIntoConstraints = false
             return bgView
         }()
         
-        
-        
         self.view.addSubview(scrollView)
-        scrollView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 0).isActive = true
-        scrollView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 150).isActive = true
-        scrollView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: 0).isActive = true
-        scrollView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: 0).isActive = true
+        scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
+        scrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: 150).isActive = true
+        scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
+        scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
         
         scrollView.addSubview(bgView)
         
@@ -162,26 +159,25 @@ class ViewController: UIViewController {
         
         var verticalAxisCounter = 20 // contentView topAnchor
 
-        for i in 1...numberOfContents { // 항목 수(numberOfContents) 만큼 UIView 박스 생성
+        for _ in 1...numberOfContents { // 항목 수(numberOfContents) 만큼 UIView 박스 생성
 
             let contentView : UIView = {
                 let contentView = UIView()
                 contentView.layer.cornerRadius = 10
                 contentView.backgroundColor = .lightGray
-                contentView.tag = i
                 contentView.translatesAutoresizingMaskIntoConstraints = false
                 return contentView
             }()
 
-            bgView.addSubview(contentView.viewWithTag(i)!)
+            bgView.addSubview(contentView)
 
-            view.viewWithTag(i)!.leadingAnchor.constraint(equalTo: bgView.leadingAnchor, constant: 20).isActive = true
-            view.viewWithTag(i)!.trailingAnchor.constraint(equalTo: bgView.trailingAnchor, constant: -20).isActive = true
-            view.viewWithTag(i)!.topAnchor.constraint(equalTo: bgView.topAnchor, constant: CGFloat(verticalAxisCounter)).isActive = true
+            contentView.leadingAnchor.constraint(equalTo: bgView.leadingAnchor, constant: 20).isActive = true
+            contentView.trailingAnchor.constraint(equalTo: bgView.trailingAnchor, constant: -20).isActive = true
+            contentView.topAnchor.constraint(equalTo: bgView.topAnchor, constant: CGFloat(verticalAxisCounter)).isActive = true
 
             verticalAxisCounter = verticalAxisCounter + 80
 
-            view.viewWithTag(i)!.bottomAnchor .constraint(equalTo:bgView.topAnchor, constant: CGFloat(verticalAxisCounter)).isActive = true
+            contentView.bottomAnchor .constraint(equalTo:bgView.topAnchor, constant: CGFloat(verticalAxisCounter)).isActive = true
 
             verticalAxisCounter = verticalAxisCounter + 20
         }
