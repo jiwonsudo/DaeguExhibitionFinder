@@ -142,6 +142,8 @@ class ViewController: UIViewController {
             return bgView
         }()
         
+        
+        
         self.view.addSubview(scrollView)
         scrollView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 0).isActive = true
         scrollView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 150).isActive = true
