@@ -35,6 +35,13 @@ class ViewController: UIViewController {
     // 레이아웃 추가 (setLayOut) 활성화 되었는지 체크
     var isLayoutSet : Bool = false
     
+    // 바탕 UIScrollView
+    let scrollView : UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
+    
     @IBOutlet var tfSearchDate: UITextField!
     @IBOutlet var lblReqResult: UILabel!
     
@@ -62,7 +69,7 @@ class ViewController: UIViewController {
         }
     }
     
-    func searchDP() {
+    func searchDP() { // 검색, 레이아웃 설정 함수 실행
         // 배열 초기화
         subjects.removeAll()
         pay_gubuns.removeAll()
@@ -97,43 +104,34 @@ class ViewController: UIViewController {
                         case "invitation":
                             self.pay_gubuns.append("초대 전용")
                         default:
-                            break
+                            return
                         }
                     }
+                    if 200..<300 ~= response.response!.statusCode {
+                        self.lblReqResult.text = "검색에 성공했습니다!"
+                        self.lblReqResult.textColor = UIColor.systemGreen
+                    } else {
+                        self.lblReqResult.text = "검색에 실패했습니다."
+                        self.lblReqResult.textColor = UIColor.systemRed
+                    }
+                    
+                    //TEST
+                    print("검색된 항목의 수: \(self.subjects.count)")
+                    print(self.subjects)
+                    print(self.pay_gubuns)
+                    print(self.start_dates)
+                    print(self.places)
+                    //TEST
+                    setLayout(numberOfContents: self.subjects.count)
                 }
             default:
-                return
-                
+                break
             }
-            
-            //TEST
-            print("검색된 항목의 수: \(self.subjects.count)")
-            print(self.subjects)
-            print(self.pay_gubuns)
-            print(self.start_dates)
-            print(self.places)
-            //TEST
-            
-            self.setLayout(numberOfContents: self.subjects.count) // backgroundView의 길이를 subject의 수에 맞게 유동적으로 조정하고 다른 UI 생성
-            
-            if 200..<300 ~= response.response!.statusCode {
-                self.lblReqResult.text = "검색에 성공했습니다!"
-                self.lblReqResult.textColor = UIColor.systemGreen
-            } else {
-                self.lblReqResult.text = "검색에 실패했습니다."
-                self.lblReqResult.textColor = UIColor.systemRed
-            }
-            // futureUpdate : JSON decode 필요
+            return
         }
     }
     
     func setLayout(numberOfContents : Int){
-        
-        let scrollView : UIScrollView = { // 바탕 UIScrollView
-            let scrollView = UIScrollView()
-            scrollView.translatesAutoresizingMaskIntoConstraints = false
-            return scrollView
-        }()
         
         let bgView : UIView = { // scrollView 위에 올라갈 바탕 UIView
             let bgView = UIView()
