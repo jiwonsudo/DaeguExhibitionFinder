@@ -32,14 +32,21 @@ class ViewController: UIViewController {
     var places : [String] = [] // 장소
     var start_dates : [String] = [] // 시작일
     
-    // 레이아웃 추가 (setLayOut) 활성화 되었는지 체크
-    var isLayoutSet : Bool = false
+    // 첫 검색인지 Bool 타입으로 저장
+    var isFirstSearch : Bool = true
     
     // 바탕 UIScrollView
     let scrollView : UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
+    }()
+    
+    // scrollView 위 bgView
+    let bgView : UIView = { // scrollView 위에 올라갈 바탕 UIView
+        let bgView = UIView()
+        bgView.translatesAutoresizingMaskIntoConstraints = false
+        return bgView
     }()
     
     @IBOutlet var tfSearchDate: UITextField!
@@ -123,7 +130,10 @@ class ViewController: UIViewController {
                     print(self.start_dates)
                     print(self.places)
                     //TEST
-                    createLayout(numberOfContents: self.subjects.count)
+                    
+                    createBgView(numberOfContents: self.subjects.count)
+                    createContentView(numberOfContents: self.subjects.count)
+                    
                 }
             default:
                 break
@@ -140,17 +150,8 @@ class ViewController: UIViewController {
         scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
     }
     
-    func createLayout(numberOfContents : Int){
-        
-        let bgView : UIView = { // scrollView 위에 올라갈 바탕 UIView
-            let bgView = UIView()
-            bgView.tag = 1
-            bgView.translatesAutoresizingMaskIntoConstraints = false
-            return bgView
-        }()
-        
+    func createBgView(numberOfContents : Int){
         scrollView.addSubview(bgView)
-        
         bgView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor).isActive = true
         bgView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor).isActive = true
         bgView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor).isActive = true
@@ -158,10 +159,12 @@ class ViewController: UIViewController {
         
         bgView.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor).isActive = true
         bgView.heightAnchor.constraint(equalToConstant: CGFloat(numberOfContents * 100 + 20)).isActive = true
-        
+    }
+    
+    func createContentView(numberOfContents : Int){
         var verticalAxisCounter = 20 // contentView topAnchor
 
-        for _ in 2...(numberOfContents + 1) { // 항목 수(numberOfContents) 만큼 UIView 박스 생성 (tag 2~NOC)
+        for _ in 1...numberOfContents { // 항목 수(numberOfContents) 만큼 UIView 박스 생성 (tag 2~NOC)
 
             let contentView : UIView = {
                 let contentView = UIView()
@@ -185,8 +188,30 @@ class ViewController: UIViewController {
         }
     }
     
+    func resetLayout(numberOfContents : Int) {
+        
+        for a in bgView.constraints {
+            bgView.removeConstraint(a)
+        }
+        bgView.removeFromSuperview()
+        
+        for i in 1...numberOfContents {
+            if let contentView = self.view.viewWithTag(i) {
+                for b in contentView.constraints {
+                    contentView.removeConstraint(b)
+                }
+                contentView.removeFromSuperview()
+            }
+        }
+    }
+    
     @IBAction func btnSearch(_ sender: UIButton) {
         if isDateVaild == true {
+            if isFirstSearch == true {
+                isFirstSearch = false
+            } else {
+                resetLayout(numberOfContents: subjects.count)
+            }
             searchDP()
         } else {
             let alertDateEmpty = UIAlertController(title: "경고", message: "전시의 종료 년도, 월을 입력해주세요.", preferredStyle: .alert)
