@@ -50,6 +50,7 @@ class ViewController: UIViewController {
         
         createPickerView()
         configToolbar()
+        createScrollView()
     }
     
     func setDate(inputYear : Int, inputMonth : Int){
@@ -122,7 +123,7 @@ class ViewController: UIViewController {
                     print(self.start_dates)
                     print(self.places)
                     //TEST
-                    setLayout(numberOfContents: self.subjects.count)
+                    createLayout(numberOfContents: self.subjects.count)
                 }
             default:
                 break
@@ -131,19 +132,22 @@ class ViewController: UIViewController {
         }
     }
     
-    func setLayout(numberOfContents : Int){
-        
-        let bgView : UIView = { // scrollView 위에 올라갈 바탕 UIView
-            let bgView = UIView()
-            bgView.translatesAutoresizingMaskIntoConstraints = false
-            return bgView
-        }()
-        
+    func createScrollView() { // scrollView 뷰에 추가
         self.view.addSubview(scrollView)
         scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
         scrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: 150).isActive = true
         scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
         scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
+    }
+    
+    func createLayout(numberOfContents : Int){
+        
+        let bgView : UIView = { // scrollView 위에 올라갈 바탕 UIView
+            let bgView = UIView()
+            bgView.tag = 1
+            bgView.translatesAutoresizingMaskIntoConstraints = false
+            return bgView
+        }()
         
         scrollView.addSubview(bgView)
         
@@ -157,7 +161,7 @@ class ViewController: UIViewController {
         
         var verticalAxisCounter = 20 // contentView topAnchor
 
-        for _ in 1...numberOfContents { // 항목 수(numberOfContents) 만큼 UIView 박스 생성
+        for _ in 2...(numberOfContents + 1) { // 항목 수(numberOfContents) 만큼 UIView 박스 생성 (tag 2~NOC)
 
             let contentView : UIView = {
                 let contentView = UIView()
