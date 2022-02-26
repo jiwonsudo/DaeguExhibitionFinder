@@ -35,6 +35,9 @@ class ViewController: UIViewController {
     // 첫 검색인지 Bool 타입으로 저장
     var isFirstSearch : Bool = true
     
+    // contentView 높이
+    var heightOfContentView : Int = 100
+    
     // 바탕 UIScrollView
     let scrollView : UIScrollView = {
         let scrollView = UIScrollView()
@@ -158,7 +161,7 @@ class ViewController: UIViewController {
         bgView.bottomAnchor .constraint(equalTo:scrollView.contentLayoutGuide.bottomAnchor).isActive = true
         
         bgView.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor).isActive = true
-        bgView.heightAnchor.constraint(equalToConstant: CGFloat(numberOfContents * 100 + 20)).isActive = true
+        bgView.heightAnchor.constraint(equalToConstant: CGFloat(numberOfContents * (heightOfContentView + 20) + 20)).isActive = true
     }
     
     func createContentLayout(numberOfContents : Int){
@@ -169,7 +172,9 @@ class ViewController: UIViewController {
             let contentView : UIView = {
                 let contentView = UIView()
                 contentView.layer.cornerRadius = 10
-                contentView.backgroundColor = .lightGray
+                contentView.backgroundColor = .clear
+                contentView.layer.borderWidth = 2
+                contentView.layer.borderColor = UIColor.systemGray.cgColor
                 contentView.translatesAutoresizingMaskIntoConstraints = false
                 return contentView
             }()
@@ -177,7 +182,7 @@ class ViewController: UIViewController {
                 let lblTitle = UILabel()
                 lblTitle.text = "\(self.subjects[i])"
                 lblTitle.textColor = .black
-                //lblTitle.font = UIFont.systemFont(ofSize: 10, weight: .bold)
+                lblTitle.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
                 lblTitle.translatesAutoresizingMaskIntoConstraints = false
                 return lblTitle
             }()
@@ -191,9 +196,9 @@ class ViewController: UIViewController {
             
             lblTitle.leadingAnchor.constraint(equalTo: bgView.leadingAnchor, constant: 30).isActive = true
             lblTitle.trailingAnchor.constraint(equalTo: bgView.trailingAnchor, constant: -30).isActive = true
-            lblTitle.topAnchor.constraint(equalTo: bgView.topAnchor, constant: CGFloat(verticalAxisCounter + 10)).isActive = true
+            lblTitle.topAnchor.constraint(equalTo: bgView.topAnchor, constant: CGFloat(verticalAxisCounter - 45)).isActive = true
 
-            verticalAxisCounter = verticalAxisCounter + 100
+            verticalAxisCounter = verticalAxisCounter + heightOfContentView
 
             contentView.bottomAnchor .constraint(equalTo:bgView.topAnchor, constant: CGFloat(verticalAxisCounter)).isActive = true
             
