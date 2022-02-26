@@ -132,7 +132,7 @@ class ViewController: UIViewController {
                     //TEST
                     
                     createBgView(numberOfContents: self.subjects.count)
-                    createContentView(numberOfContents: self.subjects.count)
+                    createContentLayout(numberOfContents: self.subjects.count)
                     
                 }
             default:
@@ -161,10 +161,10 @@ class ViewController: UIViewController {
         bgView.heightAnchor.constraint(equalToConstant: CGFloat(numberOfContents * 100 + 20)).isActive = true
     }
     
-    func createContentView(numberOfContents : Int){
+    func createContentLayout(numberOfContents : Int){
         var verticalAxisCounter = 20 // contentView topAnchor
 
-        for _ in 1...numberOfContents { // 항목 수(numberOfContents) 만큼 UIView 박스 생성 (tag 2~NOC)
+        for _ in 0..<numberOfContents { // 항목 수(numberOfContents) 만큼 UIView 박스 생성
 
             let contentView : UIView = {
                 let contentView = UIView()
@@ -194,15 +194,6 @@ class ViewController: UIViewController {
             bgView.removeConstraint(a)
         }
         bgView.removeFromSuperview()
-        
-        for i in 1...numberOfContents {
-            if let contentView = self.view.viewWithTag(i) {
-                for b in contentView.constraints {
-                    contentView.removeConstraint(b)
-                }
-                contentView.removeFromSuperview()
-            }
-        }
     }
     
     @IBAction func btnSearch(_ sender: UIButton) {
