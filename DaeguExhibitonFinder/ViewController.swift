@@ -119,8 +119,13 @@ class ViewController: UIViewController {
                         }
                     }
                     if 200..<300 ~= response.response!.statusCode {
-                        self.lblReqResult.text = "검색에 성공했습니다!"
-                        self.lblReqResult.textColor = UIColor.systemGreen
+                        if subjects.count == 0 {
+                            self.lblReqResult.text = "조건과 일치하는 검색결과가 없습니다."
+                            self.lblReqResult.textColor = UIColor.systemBlue
+                        } else {
+                            self.lblReqResult.text = "검색에 성공했습니다!"
+                            self.lblReqResult.textColor = UIColor.systemGreen
+                        }
                     } else {
                         self.lblReqResult.text = "검색에 실패했습니다."
                         self.lblReqResult.textColor = UIColor.systemRed
