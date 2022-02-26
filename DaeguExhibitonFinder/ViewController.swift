@@ -164,7 +164,7 @@ class ViewController: UIViewController {
     func createContentLayout(numberOfContents : Int){
         var verticalAxisCounter = 20 // contentView topAnchor
 
-        for _ in 0..<numberOfContents { // 항목 수(numberOfContents) 만큼 UIView 박스 생성
+        for i in 0..<numberOfContents { // 항목 수(numberOfContents) 만큼 UIView 박스 생성
 
             let contentView : UIView = {
                 let contentView = UIView()
@@ -173,16 +173,31 @@ class ViewController: UIViewController {
                 contentView.translatesAutoresizingMaskIntoConstraints = false
                 return contentView
             }()
-
+            let lblTitle : UILabel = {
+                let lblTitle = UILabel()
+                lblTitle.text = "\(self.subjects[i])"
+                lblTitle.textColor = .black
+                //lblTitle.font = UIFont.systemFont(ofSize: 10, weight: .bold)
+                lblTitle.translatesAutoresizingMaskIntoConstraints = false
+                return lblTitle
+            }()
+            
             bgView.addSubview(contentView)
+            bgView.addSubview(lblTitle)
 
             contentView.leadingAnchor.constraint(equalTo: bgView.leadingAnchor, constant: 20).isActive = true
             contentView.trailingAnchor.constraint(equalTo: bgView.trailingAnchor, constant: -20).isActive = true
             contentView.topAnchor.constraint(equalTo: bgView.topAnchor, constant: CGFloat(verticalAxisCounter)).isActive = true
+            
+            lblTitle.leadingAnchor.constraint(equalTo: bgView.leadingAnchor, constant: 30).isActive = true
+            lblTitle.trailingAnchor.constraint(equalTo: bgView.trailingAnchor, constant: -30).isActive = true
+            lblTitle.topAnchor.constraint(equalTo: bgView.topAnchor, constant: CGFloat(verticalAxisCounter + 10)).isActive = true
 
-            verticalAxisCounter = verticalAxisCounter + 80
+            verticalAxisCounter = verticalAxisCounter + 100
 
             contentView.bottomAnchor .constraint(equalTo:bgView.topAnchor, constant: CGFloat(verticalAxisCounter)).isActive = true
+            
+            lblTitle.bottomAnchor.constraint(equalTo: bgView.topAnchor, constant: CGFloat(verticalAxisCounter - 10)).isActive = true
 
             verticalAxisCounter = verticalAxisCounter + 20
         }
