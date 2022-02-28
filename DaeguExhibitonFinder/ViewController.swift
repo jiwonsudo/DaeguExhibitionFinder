@@ -188,6 +188,7 @@ class ViewController: UIViewController {
                 lblTitle.text = "\(self.subjects[i])"
                 lblTitle.textColor = .black
                 lblTitle.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+                lblTitle.adjustsFontSizeToFitWidth = true // lblTitle 내용 font 크기 lblTitle의 폭에 맞게 자동 수정
                 lblTitle.translatesAutoresizingMaskIntoConstraints = false
                 return lblTitle
             }()
