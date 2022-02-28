@@ -31,6 +31,7 @@ class ViewController: UIViewController {
     var pay_gubuns : [String] = [] // 관람비용 유형 (free : 무료, pay : 유료, invitation : 초대)
     var places : [String] = [] // 장소
     var start_dates : [String] = [] // 시작일
+    var end_dates : [String] = [] // 종료일
     
     // 첫 검색인지 Bool 타입으로 저장
     var isFirstSearch : Bool = true
@@ -86,6 +87,7 @@ class ViewController: UIViewController {
         pay_gubuns.removeAll()
         places.removeAll()
         start_dates.removeAll()
+        end_dates.removeAll()
         
         var selectedMonthStr = String(selectedMonth)
         
@@ -107,6 +109,7 @@ class ViewController: UIViewController {
                         self.subjects.append(resJsonArray[i]["subject"].stringValue) // subjects에 key: subject의 value 저장
                         self.places.append(resJsonArray[i]["place"].stringValue) // places에 key: place의 value 저장
                         self.start_dates.append(resJsonArray[i]["start_date"].stringValue) // start_dates에 key: start_date의 value 저장
+                        self.end_dates.append(resJsonArray[i]["end_date"].stringValue) // end_dates에 key: end_date의 value 저장
                         switch resJsonArray[i]["pay_gubun"].stringValue { // pay_gubuns에 key: pay_gubun의 value 한글로 저장
                         case "free":
                             self.pay_gubuns.append("무료")
@@ -135,8 +138,9 @@ class ViewController: UIViewController {
                     print("검색된 항목의 수: \(self.subjects.count)")
                     print(self.subjects)
                     print(self.pay_gubuns)
-                    print(self.start_dates)
                     print(self.places)
+                    print(self.start_dates)
+                    print(self.end_dates)
                     //TEST
                     
                     createBgView(numberOfContents: self.subjects.count)
@@ -191,6 +195,11 @@ class ViewController: UIViewController {
                 lblTitle.adjustsFontSizeToFitWidth = true // lblTitle 내용 font 크기 lblTitle의 폭에 맞게 자동 수정
                 lblTitle.translatesAutoresizingMaskIntoConstraints = false
                 return lblTitle
+            }()
+            let lblContent : UILabel = {
+                let lblContent = UILabel()
+                lblContent.text = ""
+                return lblContent
             }()
             
             bgView.addSubview(contentView)
