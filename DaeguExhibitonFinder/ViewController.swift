@@ -134,15 +134,6 @@ class ViewController: UIViewController {
                         self.lblReqResult.textColor = UIColor.systemRed
                     }
                     
-                    //TEST
-                    print("검색된 항목의 수: \(self.subjects.count)")
-                    print(self.subjects)
-                    print(self.pay_gubuns)
-                    print(self.places)
-                    print(self.start_dates)
-                    print(self.end_dates)
-                    //TEST
-                    
                     createBgView(numberOfContents: self.subjects.count)
                     createContentLayout(numberOfContents: self.subjects.count)
                     
@@ -191,8 +182,14 @@ class ViewController: UIViewController {
                 let lblTitle = UILabel()
                 lblTitle.text = "\(self.subjects[i])"
                 lblTitle.textColor = .black
-                lblTitle.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
                 lblTitle.numberOfLines = 2
+                
+                if lblTitle.text!.count > 30 {
+                    lblTitle.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
+                } else {
+                    lblTitle.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+                }
+                
                 lblTitle.adjustsFontSizeToFitWidth = true // lblTitle 내용 font 크기 lblTitle의 폭에 맞게 자동 수정
                 lblTitle.translatesAutoresizingMaskIntoConstraints = false
                 return lblTitle
@@ -259,6 +256,7 @@ class ViewController: UIViewController {
         
         for a in bgView.constraints {
             bgView.removeConstraint(a)
+            bgView.subviews.removeAll()
         }
         bgView.removeFromSuperview()
     }
