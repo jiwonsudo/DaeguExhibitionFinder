@@ -256,7 +256,6 @@ class ViewController: UIViewController {
         
         for a in bgView.constraints {
             bgView.removeConstraint(a)
-            bgView.subviews.removeAll()
         }
         bgView.removeFromSuperview()
     }
