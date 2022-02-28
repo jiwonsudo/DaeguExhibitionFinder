@@ -192,33 +192,65 @@ class ViewController: UIViewController {
                 lblTitle.text = "\(self.subjects[i])"
                 lblTitle.textColor = .black
                 lblTitle.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+                lblTitle.numberOfLines = 2
                 lblTitle.adjustsFontSizeToFitWidth = true // lblTitle 내용 font 크기 lblTitle의 폭에 맞게 자동 수정
                 lblTitle.translatesAutoresizingMaskIntoConstraints = false
                 return lblTitle
             }()
-            let lblContent : UILabel = {
-                let lblContent = UILabel()
-                lblContent.text = ""
-                return lblContent
+            let lblPayGubuns : UILabel = {
+                let lblPayGubuns = UILabel()
+                lblPayGubuns.text = "•가격: \(self.pay_gubuns[i])"
+                lblPayGubuns.font = UIFont.systemFont(ofSize: 15, weight: .light)
+                lblPayGubuns.adjustsFontSizeToFitWidth = true
+                lblPayGubuns.translatesAutoresizingMaskIntoConstraints = false
+                return lblPayGubuns
+            }()
+            let lblPlaces : UILabel = {
+                let lblPlaces = UILabel()
+                lblPlaces.text = "•장소: \(self.places[i])"
+                lblPlaces.font = UIFont.systemFont(ofSize: 15, weight: .light)
+                lblPlaces.adjustsFontSizeToFitWidth = true
+                lblPlaces.translatesAutoresizingMaskIntoConstraints = false
+                return lblPlaces
+            }()
+            let lblDPPeriod : UILabel = {
+                let lblDPPeriod = UILabel()
+                lblDPPeriod.text = "•기간: '\(self.start_dates[i])'~'\(self.end_dates[i])'"
+                lblDPPeriod.font = UIFont.systemFont(ofSize: 15, weight: .light)
+                lblDPPeriod.translatesAutoresizingMaskIntoConstraints = false
+                return lblDPPeriod
             }()
             
             bgView.addSubview(contentView)
             bgView.addSubview(lblTitle)
-
+            bgView.addSubview(lblPayGubuns)
+            bgView.addSubview(lblPlaces)
+            bgView.addSubview(lblDPPeriod)
+            
             contentView.leadingAnchor.constraint(equalTo: bgView.leadingAnchor, constant: 20).isActive = true
             contentView.trailingAnchor.constraint(equalTo: bgView.trailingAnchor, constant: -20).isActive = true
             contentView.topAnchor.constraint(equalTo: bgView.topAnchor, constant: CGFloat(verticalAxisCounter)).isActive = true
             
             lblTitle.leadingAnchor.constraint(equalTo: bgView.leadingAnchor, constant: 30).isActive = true
             lblTitle.trailingAnchor.constraint(equalTo: bgView.trailingAnchor, constant: -30).isActive = true
-            lblTitle.topAnchor.constraint(equalTo: bgView.topAnchor, constant: CGFloat(verticalAxisCounter - 45)).isActive = true
+            lblTitle.topAnchor.constraint(equalTo: bgView.topAnchor, constant: CGFloat(verticalAxisCounter + 10)).isActive = true
+            
+            lblPayGubuns.leadingAnchor.constraint(equalTo: bgView.leadingAnchor, constant: 30).isActive = true
+            lblPayGubuns.trailingAnchor.constraint(equalTo: bgView.trailingAnchor, constant: -100).isActive = true
+            lblPayGubuns.topAnchor.constraint(equalTo: bgView.topAnchor, constant: CGFloat(verticalAxisCounter + 50)).isActive = true
+            
+            lblPlaces.leadingAnchor.constraint(equalTo: bgView.leadingAnchor, constant: 120).isActive = true
+            lblPlaces.trailingAnchor.constraint(equalTo: bgView.trailingAnchor, constant: -30).isActive = true
+            lblPlaces.topAnchor.constraint(equalTo: bgView.topAnchor, constant: CGFloat(verticalAxisCounter + 50)).isActive = true
+            
+            lblDPPeriod.leadingAnchor.constraint(equalTo: bgView.leadingAnchor, constant: 30).isActive = true
+            lblDPPeriod.trailingAnchor.constraint(equalTo: bgView.trailingAnchor, constant: -30).isActive = true
+            lblDPPeriod.topAnchor.constraint(equalTo: bgView.topAnchor, constant: CGFloat(verticalAxisCounter + 70)).isActive = true
 
             verticalAxisCounter = verticalAxisCounter + heightOfContentView
 
             contentView.bottomAnchor .constraint(equalTo:bgView.topAnchor, constant: CGFloat(verticalAxisCounter)).isActive = true
             
-            lblTitle.bottomAnchor.constraint(equalTo: bgView.topAnchor, constant: CGFloat(verticalAxisCounter - 10)).isActive = true
-
             verticalAxisCounter = verticalAxisCounter + 20
         }
     }
