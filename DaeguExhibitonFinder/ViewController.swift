@@ -254,6 +254,10 @@ class ViewController: UIViewController {
     
     func resetLayout(numberOfContents : Int) {
         
+        for view in bgView.subviews {
+            view.removeFromSuperview()
+        }
+        
         for a in bgView.constraints {
             bgView.removeConstraint(a)
         }
